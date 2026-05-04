@@ -656,12 +656,17 @@ function scrollToId(id) {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function SectionTitle({ eyebrow, title, desc, icon }) {
+function SectionTitle({ eyebrow, title, desc, icon, hideTitle = false }) {
   return (
     <div className="mx-auto mb-10 max-w-3xl text-center">
-      <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700"><Icon name={icon} />{eyebrow}</div>
-      <h2 className="text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">{title}</h2>
-      <p className="mt-4 text-base leading-7 text-slate-600 md:text-lg">{desc}</p>
+      <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700">
+        <Icon name={icon} />
+        {eyebrow}
+      </div>
+      {!hideTitle && title ? (
+        <h2 className="text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">{title}</h2>
+      ) : null}
+      {desc ? <p className="mt-4 text-base leading-7 text-slate-600 md:text-lg">{desc}</p> : null}
     </div>
   );
 }
@@ -1334,12 +1339,12 @@ export default function IonReactionLearningPage() {
       </section>
 
       <section id="micro" className="scroll-mt-20 bg-white px-4 py-20 md:px-6">
-        <SectionTitle eyebrow="模块二：同步微观粒子可视化" title="模块一选什么，模块二就展示什么" desc="微观区会读取模块一当前选择的反应物，混合前显示电离离子，混合后显示反应离子、生成物和旁观离子。" icon="micro" />
+        <SectionTitle eyebrow="模块二：同步微观粒子可视化" title="模块一选什么，模块二就展示什么" desc="微观区会读取模块一当前选择的反应物，混合前显示电离离子，混合后显示反应离子、生成物和旁观离子。" icon="micro" hideTitle />
         <MicroVisualizationModule selectedA={leftReactant} selectedB={rightReactant} reaction={demoReaction} mixed={mixed} setMixed={setMixed} markDone={() => setCompleted((p) => ({ ...p, micro: true }))} />
       </section>
 
       <section id="knowledge" className="scroll-mt-20 px-4 py-20 md:px-6">
-        <SectionTitle eyebrow="模块四：同步知识讲解" title="知识讲解也围绕当前所选反应展开" desc="本模块读取模块一选择的反应物和模块二的微观结果，动态讲解反应本质、发生条件、拆分原则和离子方程式书写步骤。" icon="book" />
+        <SectionTitle eyebrow="模块四：同步知识讲解" title="知识讲解也围绕当前所选反应展开" desc="本模块读取模块一选择的反应物和模块二的微观结果，动态讲解反应本质、发生条件、拆分原则和离子方程式书写步骤。" icon="book" hideTitle />
         <DynamicKnowledgeModule selectedA={leftReactant} selectedB={rightReactant} reaction={demoReaction} markDone={() => setCompleted((p) => ({ ...p, knowledge: true }))} />
       </section>
 
