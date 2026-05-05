@@ -44,6 +44,7 @@ const substances = [
   { id: "AgNO3", label: "硝酸银溶液", formula: "AgNO₃(aq)", ions: ["Ag⁺", "NO₃⁻"], color: "slate" },
   { id: "HCl", label: "盐酸", formula: "HCl(aq)", ions: ["H⁺", "Cl⁻"], color: "orange" },
   { id: "BaCl2", label: "氯化钡溶液", formula: "BaCl₂(aq)", ions: ["Ba²⁺", "Cl⁻"], color: "blue" },
+  { id: "BaOH2", label: "氢氧化钡溶液", formula: "Ba(OH)₂(aq)", ions: ["Ba²⁺", "OH⁻"], color: "emerald" },
   { id: "Na2SO4", label: "硫酸钠溶液", formula: "Na₂SO₄(aq)", ions: ["Na⁺", "SO₄²⁻"], color: "violet" },
   { id: "H2SO4", label: "稀硫酸", formula: "H₂SO₄(aq)", ions: ["H⁺", "SO₄²⁻"], color: "violet" },
   { id: "NaOH", label: "氢氧化钠溶液", formula: "NaOH(aq)", ions: ["Na⁺", "OH⁻"], color: "emerald" },
@@ -63,7 +64,11 @@ const substances = [
   { id: "NH4Cl", label: "氯化铵溶液", formula: "NH₄Cl(aq)", ions: ["NH₄⁺", "Cl⁻"], color: "slate" },
   { id: "NH3H2O", label: "氨水", formula: "NH₃·H₂O(aq)", ions: ["NH₃·H₂O"], color: "slate" },
   { id: "NaAlO2", label: "偏铝酸钠溶液", formula: "NaAlO₂(aq)", ions: ["Na⁺", "AlO₂⁻"], color: "slate" },
+  { id: "HClExcess", label: "过量盐酸", formula: "HCl(过量)", ions: ["H⁺", "Cl⁻"], color: "orange" },
+  { id: "CO2Water", label: "少量二氧化碳", formula: "CO₂(少量)", ions: ["CO₂"], color: "slate" },
+  { id: "CO2Excess", label: "过量二氧化碳", formula: "CO₂(过量)", ions: ["CO₂"], color: "slate" },
   { id: "AlCl3", label: "氯化铝溶液", formula: "AlCl₃(aq)", ions: ["Al³⁺", "Cl⁻"], color: "slate" },
+  { id: "NaNO3", label: "硝酸钠溶液", formula: "NaNO₃(aq)", ions: ["Na⁺", "NO₃⁻"], color: "slate" },
   { id: "NaCl", label: "氯化钠溶液", formula: "NaCl(aq)", ions: ["Na⁺", "Cl⁻"], color: "sky" },
   { id: "KNO3", label: "硝酸钾溶液", formula: "KNO₃(aq)", ions: ["K⁺", "NO₃⁻"], color: "amber" },
 ];
@@ -453,8 +458,365 @@ const reactionBank = [
     tip: "少量酸使 AlO₂⁻ 转化为 Al(OH)₃ 沉淀。",
   },
   {
-    id: "nacl-kno3",
+    id: "aluminate-acid-excess",
+    number: "Al-2",
+    level: "提高",
+    category: "偏铝酸根反应",
+    reactants: ["NaAlO2", "HClExcess"],
+    title: "偏铝酸钠与过量盐酸",
+    kind: "color",
+    visualLabel: "先白色胶状沉淀，后沉淀溶解",
+    phenomenon: "先产生白色胶状沉淀，随着强酸过量，沉淀逐渐完全溶解，最终得到无色透明溶液。",
+    visual: { solution: "#e0f2fe" },
+    fullEq: "NaAlO₂ + 4HCl = AlCl₃ + NaCl + 2H₂O",
+    totalIon: "Na⁺ + AlO₂⁻ + 4H⁺ + 4Cl⁻ = Al³⁺ + 3Cl⁻ + Na⁺ + Cl⁻ + 2H₂O",
+    netIon: "AlO₂⁻ + 4H⁺ = Al³⁺ + 2H₂O",
+    cards: ["AlO₂⁻", "H⁺", "Al³⁺", "H₂O", "Na⁺", "Cl⁻"],
+    correctCards: ["AlO₂⁻", "H⁺", "Al³⁺", "H₂O"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["H₂O"],
+    inferenceIons: ["AlO₂⁻", "H⁺"],
+    tip: "过量强酸会使先生成的 Al(OH)₃ 继续溶解，最终生成 Al³⁺。",
+  },
+  {
+    id: "aluminate-co2-low",
+    number: "Al-3",
+    level: "提高",
+    category: "偏铝酸根反应",
+    reactants: ["NaAlO2", "CO2Water"],
+    title: "偏铝酸钠与少量二氧化碳",
+    kind: "precipitate",
+    visualLabel: "白色胶状 Al(OH)₃ 沉淀",
+    phenomenon: "通入少量 CO₂ 后生成白色胶状沉淀，沉淀不溶解。",
+    visual: { precipitate: "#f8fafc", solution: "#e0f2fe" },
+    fullEq: "2NaAlO₂ + CO₂ + 3H₂O = 2Al(OH)₃↓ + Na₂CO₃",
+    totalIon: "2Na⁺ + 2AlO₂⁻ + CO₂ + 3H₂O = 2Al(OH)₃↓ + 2Na⁺ + CO₃²⁻",
+    netIon: "2AlO₂⁻ + CO₂ + 3H₂O = 2Al(OH)₃↓ + CO₃²⁻",
+    cards: ["AlO₂⁻", "CO₂", "H₂O", "Al(OH)₃↓", "CO₃²⁻", "Na⁺"],
+    correctCards: ["AlO₂⁻", "CO₂", "H₂O", "Al(OH)₃↓", "CO₃²⁻"],
+    spectators: ["Na⁺"],
+    noSplit: ["CO₂", "H₂O", "Al(OH)₃↓"],
+    inferenceIons: ["AlO₂⁻", "CO₂", "H₂O"],
+    tip: "CO₂ 是弱酸性氧化物，能使 AlO₂⁻ 转化为 Al(OH)₃；少量 CO₂ 时生成 CO₃²⁻。",
+  },
+  {
+    id: "aluminate-co2-excess",
+    number: "Al-4",
+    level: "提高",
+    category: "偏铝酸根反应",
+    reactants: ["NaAlO2", "CO2Excess"],
+    title: "偏铝酸钠与过量二氧化碳",
+    kind: "precipitate",
+    visualLabel: "白色胶状 Al(OH)₃ 沉淀，过量后不溶解",
+    phenomenon: "通入过量 CO₂ 后生成白色胶状沉淀，沉淀仍不溶解。",
+    visual: { precipitate: "#f8fafc", solution: "#e0f2fe" },
+    fullEq: "NaAlO₂ + CO₂ + 2H₂O = Al(OH)₃↓ + NaHCO₃",
+    totalIon: "Na⁺ + AlO₂⁻ + CO₂ + 2H₂O = Al(OH)₃↓ + Na⁺ + HCO₃⁻",
+    netIon: "AlO₂⁻ + CO₂ + 2H₂O = Al(OH)₃↓ + HCO₃⁻",
+    cards: ["AlO₂⁻", "CO₂", "H₂O", "Al(OH)₃↓", "HCO₃⁻", "Na⁺"],
+    correctCards: ["AlO₂⁻", "CO₂", "H₂O", "Al(OH)₃↓", "HCO₃⁻"],
+    spectators: ["Na⁺"],
+    noSplit: ["CO₂", "H₂O", "Al(OH)₃↓"],
+    inferenceIons: ["AlO₂⁻", "CO₂", "H₂O"],
+    tip: "Al(OH)₃ 不溶于弱酸碳酸，因此 CO₂ 过量时沉淀不会继续溶解。",
+  },
+  {
+    id: "aluminate-al3-hydrolysis",
+    number: "Al-5",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["NaAlO2", "AlCl3"],
+    title: "偏铝酸钠与氯化铝",
+    kind: "hydrolysis",
+    visualLabel: "大量白色胶状 Al(OH)₃ 沉淀",
+    phenomenon: "两种溶液混合后，瞬间产生大量白色胶状沉淀，无气体生成。",
+    visual: { precipitate: "#f8fafc", solution: "#e0f2fe" },
+    fullEq: "3NaAlO₂ + AlCl₃ + 6H₂O = 4Al(OH)₃↓ + 3NaCl",
+    totalIon: "3Na⁺ + 3AlO₂⁻ + Al³⁺ + 3Cl⁻ + 6H₂O = 4Al(OH)₃↓ + 3Na⁺ + 3Cl⁻",
+    netIon: "Al³⁺ + 3AlO₂⁻ + 6H₂O = 4Al(OH)₃↓",
+    cards: ["Al³⁺", "AlO₂⁻", "H₂O", "Al(OH)₃↓", "Na⁺", "Cl⁻"],
+    correctCards: ["Al³⁺", "AlO₂⁻", "H₂O", "Al(OH)₃↓"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["H₂O", "Al(OH)₃↓"],
+    inferenceIons: ["Al³⁺", "AlO₂⁻", "H₂O"],
+    tip: "Al³⁺ 与 AlO₂⁻ 会完全互促水解，二者不能大量共存。",
+  },
+  {
+    id: "aluminate-nh4-hydrolysis",
+    number: "Al-6",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["NaAlO2", "NH4Cl"],
+    title: "偏铝酸钠与氯化铵",
+    kind: "hydrolysis",
+    visualLabel: "白色胶状沉淀 + 刺激性 NH₃",
+    phenomenon: "生成白色胶状沉淀，同时放出有刺激性气味的氨气。",
+    visual: { precipitate: "#f8fafc", bubble: "#ffffff", solution: "#e0f2fe" },
+    fullEq: "NaAlO₂ + NH₄Cl + H₂O = Al(OH)₃↓ + NH₃↑ + NaCl",
+    totalIon: "Na⁺ + AlO₂⁻ + NH₄⁺ + Cl⁻ + H₂O = Al(OH)₃↓ + NH₃↑ + Na⁺ + Cl⁻",
+    netIon: "AlO₂⁻ + NH₄⁺ + H₂O = Al(OH)₃↓ + NH₃↑",
+    cards: ["AlO₂⁻", "NH₄⁺", "H₂O", "Al(OH)₃↓", "NH₃↑", "Na⁺", "Cl⁻"],
+    correctCards: ["AlO₂⁻", "NH₄⁺", "H₂O", "Al(OH)₃↓", "NH₃↑"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["H₂O", "Al(OH)₃↓", "NH₃↑"],
+    inferenceIons: ["AlO₂⁻", "NH₄⁺", "H₂O"],
+    tip: "AlO₂⁻ 与 NH₄⁺ 发生互促水解，生成 Al(OH)₃ 并放出 NH₃。",
+  },
+  {
+    id: "aluminate-fe3-hydrolysis",
+    number: "Al-7",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["NaAlO2", "FeCl3"],
+    title: "偏铝酸钠与氯化铁",
+    kind: "hydrolysis",
+    visualLabel: "红褐色 Fe(OH)₃ 与白色 Al(OH)₃ 混合沉淀",
+    phenomenon: "生成红褐色氢氧化铁沉淀与白色氢氧化铝沉淀的混合物。",
+    visual: { precipitate: "#92400e", solution: "#fef3c7" },
+    fullEq: "FeCl₃ + 3NaAlO₂ + 6H₂O = Fe(OH)₃↓ + 3Al(OH)₃↓ + 3NaCl",
+    totalIon: "Fe³⁺ + 3Cl⁻ + 3Na⁺ + 3AlO₂⁻ + 6H₂O = Fe(OH)₃↓ + 3Al(OH)₃↓ + 3Na⁺ + 3Cl⁻",
+    netIon: "Fe³⁺ + 3AlO₂⁻ + 6H₂O = Fe(OH)₃↓ + 3Al(OH)₃↓",
+    cards: ["Fe³⁺", "AlO₂⁻", "H₂O", "Fe(OH)₃↓", "Al(OH)₃↓", "Na⁺", "Cl⁻"],
+    correctCards: ["Fe³⁺", "AlO₂⁻", "H₂O", "Fe(OH)₃↓", "Al(OH)₃↓"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["H₂O", "Fe(OH)₃↓", "Al(OH)₃↓"],
+    inferenceIons: ["Fe³⁺", "AlO₂⁻", "H₂O"],
+    tip: "Fe³⁺ 与 AlO₂⁻ 互促水解，生成两种氢氧化物沉淀。",
+  },
+  {
+    id: "aluminate-cu2-hydrolysis",
+    number: "Al-8",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["NaAlO2", "CuSO4"],
+    title: "偏铝酸钠与硫酸铜",
+    kind: "hydrolysis",
+    visualLabel: "蓝色 Cu(OH)₂ 与白色 Al(OH)₃ 混合沉淀",
+    phenomenon: "生成蓝色氢氧化铜沉淀与白色氢氧化铝沉淀的混合物。",
+    visual: { precipitate: "#38bdf8", solution: "#dbeafe" },
+    fullEq: "CuSO₄ + 2NaAlO₂ + 4H₂O = Cu(OH)₂↓ + 2Al(OH)₃↓ + Na₂SO₄",
+    totalIon: "Cu²⁺ + SO₄²⁻ + 2Na⁺ + 2AlO₂⁻ + 4H₂O = Cu(OH)₂↓ + 2Al(OH)₃↓ + 2Na⁺ + SO₄²⁻",
+    netIon: "Cu²⁺ + 2AlO₂⁻ + 4H₂O = Cu(OH)₂↓ + 2Al(OH)₃↓",
+    cards: ["Cu²⁺", "AlO₂⁻", "H₂O", "Cu(OH)₂↓", "Al(OH)₃↓", "Na⁺", "SO₄²⁻"],
+    correctCards: ["Cu²⁺", "AlO₂⁻", "H₂O", "Cu(OH)₂↓", "Al(OH)₃↓"],
+    spectators: ["Na⁺", "SO₄²⁻"],
+    noSplit: ["H₂O", "Cu(OH)₂↓", "Al(OH)₃↓"],
+    inferenceIons: ["Cu²⁺", "AlO₂⁻", "H₂O"],
+    tip: "Cu²⁺ 与 AlO₂⁻ 互促水解，生成蓝色 Cu(OH)₂ 与白色 Al(OH)₃。",
+  },
+  {
+    id: "aluminate-hco3",
+    number: "Al-9",
+    level: "提高",
+    category: "偏铝酸根反应",
+    reactants: ["NaAlO2", "NaHCO3"],
+    title: "偏铝酸钠与碳酸氢钠",
+    kind: "precipitate",
+    visualLabel: "白色胶状 Al(OH)₃ 沉淀",
+    phenomenon: "产生白色胶状沉淀。",
+    visual: { precipitate: "#f8fafc", solution: "#e0f2fe" },
+    fullEq: "NaAlO₂ + NaHCO₃ + H₂O = Al(OH)₃↓ + Na₂CO₃",
+    totalIon: "Na⁺ + AlO₂⁻ + Na⁺ + HCO₃⁻ + H₂O = Al(OH)₃↓ + 2Na⁺ + CO₃²⁻",
+    netIon: "AlO₂⁻ + HCO₃⁻ + H₂O = Al(OH)₃↓ + CO₃²⁻",
+    cards: ["AlO₂⁻", "HCO₃⁻", "H₂O", "Al(OH)₃↓", "CO₃²⁻", "Na⁺"],
+    correctCards: ["AlO₂⁻", "HCO₃⁻", "H₂O", "Al(OH)₃↓", "CO₃²⁻"],
+    spectators: ["Na⁺"],
+    noSplit: ["H₂O", "Al(OH)₃↓"],
+    inferenceIons: ["AlO₂⁻", "HCO₃⁻", "H₂O"],
+    tip: "HCO₃⁻ 能提供 H⁺ 趋势，使 AlO₂⁻ 转化为 Al(OH)₃；二者不能大量共存。",
+  },
+  {
+    id: "baco3",
     number: "18",
+    level: "基础",
+    category: "沉淀反应",
+    reactants: ["BaCl2", "Na2CO3"],
+    title: "氯化钡与碳酸钠",
+    kind: "precipitate",
+    visualLabel: "白色 BaCO₃ 沉淀",
+    phenomenon: "生成白色沉淀。",
+    visual: { precipitate: "#ffffff", solution: "#dbeafe" },
+    fullEq: "BaCl₂ + Na₂CO₃ = BaCO₃↓ + 2NaCl",
+    totalIon: "Ba²⁺ + 2Cl⁻ + 2Na⁺ + CO₃²⁻ = BaCO₃↓ + 2Na⁺ + 2Cl⁻",
+    netIon: "Ba²⁺ + CO₃²⁻ = BaCO₃↓",
+    cards: ["Ba²⁺", "CO₃²⁻", "BaCO₃↓", "Na⁺", "Cl⁻"],
+    correctCards: ["Ba²⁺", "CO₃²⁻", "BaCO₃↓"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["BaCO₃↓"],
+    inferenceIons: ["Ba²⁺", "CO₃²⁻"],
+    tip: "BaCO₃ 是白色难溶沉淀，所以 Ba²⁺ 与 CO₃²⁻ 不能大量共存。",
+  },
+  {
+    id: "cu-caoh2",
+    number: "19",
+    level: "基础",
+    category: "有色沉淀",
+    reactants: ["CuSO4", "CaOH2"],
+    title: "硫酸铜与澄清石灰水",
+    kind: "precipitate",
+    visualLabel: "蓝色絮状 Cu(OH)₂ 沉淀",
+    phenomenon: "生成蓝色絮状沉淀。",
+    visual: { precipitate: "#38bdf8", solution: "#dbeafe" },
+    fullEq: "CuSO₄ + Ca(OH)₂ = Cu(OH)₂↓ + CaSO₄",
+    totalIon: "Cu²⁺ + SO₄²⁻ + Ca²⁺ + 2OH⁻ = Cu(OH)₂↓ + Ca²⁺ + SO₄²⁻",
+    netIon: "Cu²⁺ + 2OH⁻ = Cu(OH)₂↓",
+    cards: ["Cu²⁺", "OH⁻", "Cu(OH)₂↓", "Ca²⁺", "SO₄²⁻"],
+    correctCards: ["Cu²⁺", "OH⁻", "Cu(OH)₂↓"],
+    spectators: ["Ca²⁺", "SO₄²⁻"],
+    noSplit: ["Cu(OH)₂↓"],
+    inferenceIons: ["Cu²⁺", "OH⁻"],
+    tip: "蓝色絮状沉淀是 Cu(OH)₂ 的典型现象。",
+  },
+  {
+    id: "cu-carbonate-hydrolysis",
+    number: "20",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["CuSO4", "Na2CO3"],
+    title: "硫酸铜与碳酸钠",
+    kind: "hydrolysis",
+    visualLabel: "蓝色沉淀 + CO₂ 气泡",
+    phenomenon: "生成蓝色沉淀，并有无色气泡产生。",
+    visual: { precipitate: "#38bdf8", bubble: "#ffffff", solution: "#dbeafe" },
+    fullEq: "CuSO₄ + Na₂CO₃ + H₂O = Cu(OH)₂↓ + CO₂↑ + Na₂SO₄",
+    totalIon: "Cu²⁺ + SO₄²⁻ + 2Na⁺ + CO₃²⁻ + H₂O = Cu(OH)₂↓ + CO₂↑ + 2Na⁺ + SO₄²⁻",
+    netIon: "Cu²⁺ + CO₃²⁻ + H₂O = Cu(OH)₂↓ + CO₂↑",
+    cards: ["Cu²⁺", "CO₃²⁻", "H₂O", "Cu(OH)₂↓", "CO₂↑", "Na⁺", "SO₄²⁻"],
+    correctCards: ["Cu²⁺", "CO₃²⁻", "H₂O", "Cu(OH)₂↓", "CO₂↑"],
+    spectators: ["Na⁺", "SO₄²⁻"],
+    noSplit: ["H₂O", "Cu(OH)₂↓", "CO₂↑"],
+    inferenceIons: ["Cu²⁺", "CO₃²⁻", "H₂O"],
+    tip: "Cu²⁺ 与 CO₃²⁻ 不能简单判为无反应，高中常按彻底双水解处理，生成 Cu(OH)₂ 和 CO₂。",
+  },
+  {
+    id: "fe3-carbonate-hydrolysis",
+    number: "21",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["FeCl3", "Na2CO3"],
+    title: "氯化铁与碳酸钠",
+    kind: "hydrolysis",
+    visualLabel: "红褐色沉淀 + CO₂ 气泡",
+    phenomenon: "生成红褐色沉淀，并有无色气泡产生。",
+    visual: { precipitate: "#92400e", bubble: "#ffffff", solution: "#fef3c7" },
+    fullEq: "2FeCl₃ + 3Na₂CO₃ + 3H₂O = 2Fe(OH)₃↓ + 3CO₂↑ + 6NaCl",
+    totalIon: "2Fe³⁺ + 6Cl⁻ + 6Na⁺ + 3CO₃²⁻ + 3H₂O = 2Fe(OH)₃↓ + 3CO₂↑ + 6Na⁺ + 6Cl⁻",
+    netIon: "2Fe³⁺ + 3CO₃²⁻ + 3H₂O = 2Fe(OH)₃↓ + 3CO₂↑",
+    cards: ["Fe³⁺", "CO₃²⁻", "H₂O", "Fe(OH)₃↓", "CO₂↑", "Na⁺", "Cl⁻"],
+    correctCards: ["Fe³⁺", "CO₃²⁻", "H₂O", "Fe(OH)₃↓", "CO₂↑"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["H₂O", "Fe(OH)₃↓", "CO₂↑"],
+    inferenceIons: ["Fe³⁺", "CO₃²⁻", "H₂O"],
+    tip: "Fe³⁺ 与 CO₃²⁻ 发生彻底双水解，现象是红褐色 Fe(OH)₃ 沉淀并放出 CO₂。",
+  },
+  {
+    id: "al-carbonate-hydrolysis",
+    number: "22",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["AlCl3", "Na2CO3"],
+    title: "氯化铝与碳酸钠",
+    kind: "hydrolysis",
+    visualLabel: "白色沉淀 + CO₂ 气泡",
+    phenomenon: "生成白色沉淀，并有无色气泡产生。",
+    visual: { precipitate: "#f8fafc", bubble: "#ffffff", solution: "#e0f2fe" },
+    fullEq: "2AlCl₃ + 3Na₂CO₃ + 3H₂O = 2Al(OH)₃↓ + 3CO₂↑ + 6NaCl",
+    totalIon: "2Al³⁺ + 6Cl⁻ + 6Na⁺ + 3CO₃²⁻ + 3H₂O = 2Al(OH)₃↓ + 3CO₂↑ + 6Na⁺ + 6Cl⁻",
+    netIon: "2Al³⁺ + 3CO₃²⁻ + 3H₂O = 2Al(OH)₃↓ + 3CO₂↑",
+    cards: ["Al³⁺", "CO₃²⁻", "H₂O", "Al(OH)₃↓", "CO₂↑", "Na⁺", "Cl⁻"],
+    correctCards: ["Al³⁺", "CO₃²⁻", "H₂O", "Al(OH)₃↓", "CO₂↑"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["H₂O", "Al(OH)₃↓", "CO₂↑"],
+    inferenceIons: ["Al³⁺", "CO₃²⁻", "H₂O"],
+    tip: "Al³⁺ 与 CO₃²⁻ 也会彻底双水解，生成 Al(OH)₃ 和 CO₂。",
+  },
+  {
+    id: "cu-hco3-hydrolysis",
+    number: "23",
+    level: "提高",
+    category: "双水解反应",
+    reactants: ["CuSO4", "NaHCO3"],
+    title: "硫酸铜与碳酸氢钠",
+    kind: "hydrolysis",
+    visualLabel: "蓝色絮状沉淀 + CO₂ 气泡",
+    phenomenon: "生成蓝色絮状沉淀，并放出无色气泡。",
+    visual: { precipitate: "#38bdf8", bubble: "#ffffff", solution: "#dbeafe" },
+    fullEq: "CuSO₄ + 2NaHCO₃ = Cu(OH)₂↓ + 2CO₂↑ + Na₂SO₄",
+    totalIon: "Cu²⁺ + SO₄²⁻ + 2Na⁺ + 2HCO₃⁻ = Cu(OH)₂↓ + 2CO₂↑ + 2Na⁺ + SO₄²⁻",
+    netIon: "Cu²⁺ + 2HCO₃⁻ = Cu(OH)₂↓ + 2CO₂↑",
+    cards: ["Cu²⁺", "HCO₃⁻", "Cu(OH)₂↓", "CO₂↑", "Na⁺", "SO₄²⁻"],
+    correctCards: ["Cu²⁺", "HCO₃⁻", "Cu(OH)₂↓", "CO₂↑"],
+    spectators: ["Na⁺", "SO₄²⁻"],
+    noSplit: ["Cu(OH)₂↓", "CO₂↑"],
+    inferenceIons: ["Cu²⁺", "HCO₃⁻"],
+    tip: "Cu²⁺ 与 HCO₃⁻ 不能大量共存，会生成 Cu(OH)₂ 并放出 CO₂。",
+  },
+  {
+    id: "fe3-hco3-hydrolysis",
+    number: "24",
+    level: "提高",
+    category: "彻底双水解",
+    reactants: ["FeCl3", "NaHCO3"],
+    title: "氯化铁与碳酸氢钠",
+    kind: "hydrolysis",
+    visualLabel: "红褐色沉淀 + 剧烈气泡",
+    phenomenon: "生成红褐色沉淀，剧烈放出无色气泡。",
+    visual: { precipitate: "#92400e", bubble: "#ffffff", solution: "#fef3c7" },
+    fullEq: "FeCl₃ + 3NaHCO₃ = Fe(OH)₃↓ + 3CO₂↑ + 3NaCl",
+    totalIon: "Fe³⁺ + 3Cl⁻ + 3Na⁺ + 3HCO₃⁻ = Fe(OH)₃↓ + 3CO₂↑ + 3Na⁺ + 3Cl⁻",
+    netIon: "Fe³⁺ + 3HCO₃⁻ = Fe(OH)₃↓ + 3CO₂↑",
+    cards: ["Fe³⁺", "HCO₃⁻", "Fe(OH)₃↓", "CO₂↑", "Na⁺", "Cl⁻"],
+    correctCards: ["Fe³⁺", "HCO₃⁻", "Fe(OH)₃↓", "CO₂↑"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["Fe(OH)₃↓", "CO₂↑"],
+    inferenceIons: ["Fe³⁺", "HCO₃⁻"],
+    tip: "Fe³⁺ 与 HCO₃⁻ 会彻底双水解，不能大量共存。",
+  },
+  {
+    id: "fe2-carbonate",
+    number: "25",
+    level: "提高",
+    category: "沉淀并易氧化",
+    reactants: ["FeCl2", "Na2CO3"],
+    title: "氯化亚铁与碳酸钠",
+    kind: "precipitate",
+    visualLabel: "白色沉淀，后变灰绿",
+    phenomenon: "生成白色沉淀，沉淀易被空气氧化，逐渐变灰绿色。",
+    visual: { precipitate: "#e5e7eb", solution: "#dcfce7" },
+    fullEq: "FeCl₂ + Na₂CO₃ = FeCO₃↓ + 2NaCl",
+    totalIon: "Fe²⁺ + 2Cl⁻ + 2Na⁺ + CO₃²⁻ = FeCO₃↓ + 2Na⁺ + 2Cl⁻",
+    netIon: "Fe²⁺ + CO₃²⁻ = FeCO₃↓",
+    cards: ["Fe²⁺", "CO₃²⁻", "FeCO₃↓", "Na⁺", "Cl⁻"],
+    correctCards: ["Fe²⁺", "CO₃²⁻", "FeCO₃↓"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["FeCO₃↓"],
+    inferenceIons: ["Fe²⁺", "CO₃²⁻"],
+    tip: "Fe²⁺ 与 CO₃²⁻ 生成 FeCO₃ 沉淀，沉淀易氧化变色。",
+  },
+  {
+    id: "fe2-hco3",
+    number: "26",
+    level: "提高",
+    category: "沉淀并放气",
+    reactants: ["FeCl2", "NaHCO3"],
+    title: "氯化亚铁与碳酸氢钠",
+    kind: "hydrolysis",
+    visualLabel: "白色沉淀 + CO₂ 气泡，后变色",
+    phenomenon: "生成白色沉淀，同时产生无色气泡，沉淀易被空气氧化变色。",
+    visual: { precipitate: "#e5e7eb", bubble: "#ffffff", solution: "#dcfce7" },
+    fullEq: "FeCl₂ + 2NaHCO₃ = Fe(OH)₂↓ + 2CO₂↑ + 2NaCl",
+    totalIon: "Fe²⁺ + 2Cl⁻ + 2Na⁺ + 2HCO₃⁻ = Fe(OH)₂↓ + 2CO₂↑ + 2Na⁺ + 2Cl⁻",
+    netIon: "Fe²⁺ + 2HCO₃⁻ = Fe(OH)₂↓ + 2CO₂↑",
+    cards: ["Fe²⁺", "HCO₃⁻", "Fe(OH)₂↓", "CO₂↑", "Na⁺", "Cl⁻"],
+    correctCards: ["Fe²⁺", "HCO₃⁻", "Fe(OH)₂↓", "CO₂↑"],
+    spectators: ["Na⁺", "Cl⁻"],
+    noSplit: ["Fe(OH)₂↓", "CO₂↑"],
+    inferenceIons: ["Fe²⁺", "HCO₃⁻"],
+    tip: "Fe²⁺ 与 HCO₃⁻ 不能大量共存，沉淀还会被空气氧化。",
+  },
+  {
+    id: "nacl-kno3",
+    number: "27",
     level: "判断",
     category: "无明显净反应",
     reactants: ["NaCl", "KNO3"],
@@ -475,15 +837,103 @@ const reactionBank = [
   },
 ];
 
+const tableReactionRows = [{"n":1,"a":"AgNO3","b":"BaCl2","phen":"生成白色不溶于稀硝酸的沉淀","eq":"Ag⁺+Cl⁻=AgCl↓","yes":true},{"n":2,"a":"AgNO3","b":"Na2SO4","phen":"生成白色微溶沉淀","eq":"2Ag⁺+SO₄²⁻=Ag₂SO₄↓","yes":true},{"n":3,"a":"AgNO3","b":"H2SO4","phen":"生成白色微溶沉淀","eq":"2Ag⁺+SO₄²⁻=Ag₂SO₄↓","yes":true},{"n":4,"a":"AgNO3","b":"BaOH2","phen":"先生成白色沉淀，迅速变为棕黑色沉淀","eq":"2Ag⁺+2OH⁻=Ag₂O↓+H₂O","yes":true},{"n":5,"a":"AgNO3","b":"CaOH2","phen":"先生成白色沉淀，迅速变为棕黑色沉淀","eq":"2Ag⁺+2OH⁻=Ag₂O↓+H₂O","yes":true},{"n":6,"a":"AgNO3","b":"Na2CO3","phen":"生成白色沉淀","eq":"2Ag⁺+CO₃²⁻=Ag₂CO₃↓","yes":true},{"n":7,"a":"AgNO3","b":"NaHCO3","phen":"生成白色沉淀，同时产生无色气泡","eq":"2Ag⁺+2HCO₃⁻=Ag₂CO₃↓+CO₂↑+H₂O","yes":true},{"n":8,"a":"AgNO3","b":"CuSO4","phen":"生成蓝色絮状沉淀和白色沉淀","eq":"2Ag⁺+SO₄²⁻+Cu²⁺+2OH⁻=Ag₂SO₄↓+Cu(OH)₂↓","yes":true},{"n":9,"a":"AgNO3","b":"Na2S","phen":"生成黑色不溶于酸的沉淀","eq":"2Ag⁺+S²⁻=Ag₂S↓","yes":true},{"n":10,"a":"AgNO3","b":"FeCl3","phen":"生成白色沉淀","eq":"Ag⁺+Cl⁻=AgCl↓","yes":true},{"n":11,"a":"AgNO3","b":"FeCl2","phen":"生成白色沉淀","eq":"Ag⁺+Cl⁻=AgCl↓","yes":true},{"n":12,"a":"AgNO3","b":"KSCN","phen":"生成白色沉淀","eq":"Ag⁺+SCN⁻=AgSCN↓","yes":true},{"n":13,"a":"AgNO3","b":"KI","phen":"生成黄色不溶于稀硝酸的沉淀","eq":"Ag⁺+I⁻=AgI↓","yes":true},{"n":14,"a":"AgNO3","b":"NaBr","phen":"生成淡黄色不溶于稀硝酸的沉淀","eq":"Ag⁺+Br⁻=AgBr↓","yes":true},{"n":15,"a":"AgNO3","b":"Cl2Water","phen":"生成白色沉淀，氯水黄绿色褪去","eq":"Ag⁺+Cl⁻=AgCl↓","yes":true},{"n":16,"a":"AgNO3","b":"Br2Water","phen":"生成淡黄色沉淀，溴水橙色褪去","eq":"Ag⁺+Br⁻=AgBr↓","yes":true},{"n":17,"a":"AgNO3","b":"Na2SO3","phen":"生成白色沉淀","eq":"2Ag⁺+SO₃²⁻=Ag₂SO₃↓","yes":true},{"n":18,"a":"AgNO3","b":"NH4Cl","phen":"生成白色沉淀","eq":"Ag⁺+Cl⁻=AgCl↓","yes":true},{"n":19,"a":"AgNO3","b":"NH3H2O","phen":"先生成白色沉淀，氨水过量后沉淀溶解，得到无色溶液","eq":"Ag⁺+2NH₃·H₂O=[Ag(NH₃)₂]⁺+2H₂O","yes":true},{"n":20,"a":"AgNO3","b":"NaAlO2","phen":"生成棕黑色沉淀和白色胶状沉淀","eq":"Ag⁺+AlO₂⁻+2H₂O=AgOH↓+Al(OH)₃↓","yes":true},{"n":21,"a":"AgNO3","b":"AlCl3","phen":"生成白色沉淀","eq":"Ag⁺+Cl⁻=AgCl↓","yes":true},{"n":24,"a":"BaCl2","b":"Na2SO4","phen":"生成白色不溶于稀盐酸的沉淀","eq":"Ba²⁺+SO₄²⁻=BaSO₄↓","yes":true},{"n":25,"a":"BaCl2","b":"H2SO4","phen":"生成白色不溶于稀盐酸的沉淀","eq":"Ba²⁺+SO₄²⁻=BaSO₄↓","yes":true},{"n":28,"a":"BaCl2","b":"Na2CO3","phen":"生成白色可溶于稀盐酸的沉淀","eq":"Ba²⁺+CO₃²⁻=BaCO₃↓","yes":true},{"n":30,"a":"BaCl2","b":"CuSO4","phen":"生成白色沉淀，溶液蓝色变浅","eq":"Ba²⁺+SO₄²⁻=BaSO₄↓","yes":true},{"n":39,"a":"BaCl2","b":"Na2SO3","phen":"生成白色可溶于稀盐酸的沉淀","eq":"Ba²⁺+SO₃²⁻=BaSO₃↓","yes":true},{"n":47,"a":"Na2SO4","b":"BaOH2","phen":"生成白色不溶于稀盐酸的沉淀","eq":"Ba²⁺+SO₄²⁻=BaSO₄↓","yes":true},{"n":48,"a":"Na2SO4","b":"CaOH2","phen":"生成白色微溶浑浊","eq":"Ca²⁺+SO₄²⁻=CaSO₄↓","yes":true},{"n":67,"a":"H2SO4","b":"BaOH2","phen":"生成白色不溶于稀盐酸的沉淀，反应放热","eq":"Ba²⁺+2OH⁻+2H⁺+SO₄²⁻=BaSO₄↓+2H₂O","yes":true},{"n":68,"a":"H2SO4","b":"CaOH2","phen":"无明显现象，发生中和反应放热","eq":"2H⁺+2OH⁻=2H₂O","yes":true},{"n":69,"a":"H2SO4","b":"Na2CO3","phen":"产生大量无色无味气泡","eq":"CO₃²⁻+2H⁺=CO₂↑+H₂O","yes":true},{"n":70,"a":"H2SO4","b":"NaHCO3","phen":"产生大量无色无味气泡","eq":"HCO₃⁻+H⁺=CO₂↑+H₂O","yes":true},{"n":72,"a":"H2SO4","b":"Na2S","phen":"产生臭鸡蛋气味的无色气体","eq":"S²⁻+2H⁺=H₂S↑","yes":true},{"n":80,"a":"H2SO4","b":"Na2SO3","phen":"产生刺激性气味的无色气体","eq":"SO₃²⁻+2H⁺=SO₂↑+H₂O","yes":true},{"n":82,"a":"H2SO4","b":"NH3H2O","phen":"无明显现象，发生中和反应","eq":"H⁺+NH₃·H₂O=NH₄⁺+H₂O","yes":true},{"n":83,"a":"H2SO4","b":"NaAlO2","phen":"先生成白色胶状沉淀，硫酸过量后沉淀溶解","eq":"AlO₂⁻+H⁺+H₂O=Al(OH)₃↓；Al(OH)₃+3H⁺=Al³⁺+3H₂O","yes":true},{"n":88,"a":"BaOH2","b":"Na2CO3","phen":"生成白色可溶于稀盐酸的沉淀","eq":"Ba²⁺+CO₃²⁻=BaCO₃↓","yes":true},{"n":89,"a":"BaOH2","b":"NaHCO3","phen":"生成白色沉淀","eq":"Ba²⁺+2OH⁻+2HCO₃⁻=BaCO₃↓+CO₃²⁻+2H₂O","yes":true},{"n":90,"a":"BaOH2","b":"CuSO4","phen":"生成蓝色絮状沉淀和白色沉淀","eq":"Ba²⁺+2OH⁻+Cu²⁺+SO₄²⁻=Cu(OH)₂↓+BaSO₄↓","yes":true},{"n":92,"a":"BaOH2","b":"FeCl3","phen":"生成红褐色沉淀","eq":"Fe³⁺+3OH⁻=Fe(OH)₃↓","yes":true},{"n":93,"a":"BaOH2","b":"FeCl2","phen":"生成白色沉淀，迅速变为灰绿色，最终变为红褐色","eq":"Fe²⁺+2OH⁻=Fe(OH)₂↓","yes":true},{"n":97,"a":"BaOH2","b":"Cl2Water","phen":"氯水黄绿色褪去，无沉淀生成","eq":"Cl₂+2OH⁻=Cl⁻+ClO⁻+H₂O","yes":true},{"n":98,"a":"BaOH2","b":"Br2Water","phen":"溴水橙色褪去，无沉淀生成","eq":"Br₂+2OH⁻=Br⁻+BrO⁻+H₂O","yes":true},{"n":100,"a":"BaOH2","b":"NH4Cl","phen":"产生刺激性气味的无色气体","eq":"NH₄⁺+OH⁻=NH₃↑+H₂O","yes":true},{"n":103,"a":"BaOH2","b":"AlCl3","phen":"生成白色胶状沉淀","eq":"Al³⁺+3OH⁻=Al(OH)₃↓","yes":true},{"n":106,"a":"CaOH2","b":"Na2CO3","phen":"生成白色可溶于稀盐酸的沉淀","eq":"Ca²⁺+CO₃²⁻=CaCO₃↓","yes":true},{"n":107,"a":"CaOH2","b":"NaHCO3","phen":"生成白色沉淀","eq":"Ca²⁺+OH⁻+HCO₃⁻=CaCO₃↓+H₂O","yes":true},{"n":108,"a":"CaOH2","b":"CuSO4","phen":"生成蓝色絮状沉淀","eq":"Cu²⁺+2OH⁻=Cu(OH)₂↓","yes":true},{"n":110,"a":"CaOH2","b":"FeCl3","phen":"生成红褐色沉淀","eq":"Fe³⁺+3OH⁻=Fe(OH)₃↓","yes":true},{"n":111,"a":"CaOH2","b":"FeCl2","phen":"生成白色沉淀，迅速变为灰绿色，最终变为红褐色","eq":"Fe²⁺+2OH⁻=Fe(OH)₂↓","yes":true},{"n":115,"a":"CaOH2","b":"Cl2Water","phen":"氯水黄绿色褪去，无沉淀生成","eq":"Cl₂+2OH⁻=Cl⁻+ClO⁻+H₂O","yes":true},{"n":116,"a":"CaOH2","b":"Br2Water","phen":"溴水橙色褪去，无沉淀生成","eq":"Br₂+2OH⁻=Br⁻+BrO⁻+H₂O","yes":true},{"n":118,"a":"CaOH2","b":"NH4Cl","phen":"产生刺激性气味的无色气体","eq":"NH₄⁺+OH⁻=NH₃↑+H₂O","yes":true},{"n":121,"a":"CaOH2","b":"AlCl3","phen":"生成白色胶状沉淀","eq":"Al³⁺+3OH⁻=Al(OH)₃↓","yes":true},{"n":125,"a":"Na2CO3","b":"CuSO4","phen":"生成蓝色絮状沉淀，同时产生无色气泡","eq":"Cu²⁺+CO₃²⁻+H₂O=Cu(OH)₂↓+CO₂↑","yes":true},{"n":127,"a":"Na2CO3","b":"FeCl3","phen":"生成红褐色沉淀，同时产生大量无色气泡","eq":"2Fe³⁺+3CO₃²⁻+3H₂O=2Fe(OH)₃↓+3CO₂↑","yes":true},{"n":128,"a":"Na2CO3","b":"FeCl2","phen":"生成白色沉淀，迅速变为灰绿色","eq":"Fe²⁺+CO₃²⁻=FeCO₃↓","yes":true},{"n":132,"a":"Na2CO3","b":"Cl2Water","phen":"氯水黄绿色褪去，同时产生无色气泡","eq":"Cl₂+CO₃²⁻+H₂O=Cl⁻+ClO⁻+CO₂↑","yes":true},{"n":133,"a":"Na2CO3","b":"Br2Water","phen":"溴水橙色褪去，同时产生无色气泡","eq":"Br₂+CO₃²⁻+H₂O=Br⁻+BrO⁻+CO₂↑","yes":true},{"n":135,"a":"Na2CO3","b":"NH4Cl","phen":"产生无色气泡和刺激性气味气体","eq":"CO₃²⁻+2NH₄⁺=CO₂↑+2NH₃↑+H₂O","yes":true},{"n":138,"a":"Na2CO3","b":"AlCl3","phen":"生成白色胶状沉淀，同时产生大量无色气泡","eq":"2Al³⁺+3CO₃²⁻+3H₂O=2Al(OH)₃↓+3CO₂↑","yes":true},{"n":141,"a":"NaHCO3","b":"CuSO4","phen":"生成蓝色絮状沉淀，同时产生大量无色气泡","eq":"Cu²⁺+2HCO₃⁻=Cu(OH)₂↓+2CO₂↑","yes":true},{"n":143,"a":"NaHCO3","b":"FeCl3","phen":"生成红褐色沉淀，同时产生大量无色气泡","eq":"Fe³⁺+3HCO₃⁻=Fe(OH)₃↓+3CO₂↑","yes":true},{"n":148,"a":"NaHCO3","b":"Cl2Water","phen":"氯水黄绿色褪去，同时产生无色气泡","eq":"Cl₂+HCO₃⁻=Cl⁻+HClO+CO₂↑","yes":true},{"n":149,"a":"NaHCO3","b":"Br2Water","phen":"溴水橙色褪去，同时产生无色气泡","eq":"Br₂+HCO₃⁻=Br⁻+HBrO+CO₂↑","yes":true},{"n":153,"a":"NaHCO3","b":"NaAlO2","phen":"生成白色胶状沉淀","eq":"AlO₂⁻+HCO₃⁻+H₂O=Al(OH)₃↓+CO₃²⁻","yes":true},{"n":154,"a":"NaHCO3","b":"AlCl3","phen":"生成白色胶状沉淀，同时产生大量无色气泡","eq":"Al³⁺+3HCO₃⁻=Al(OH)₃↓+3CO₂↑","yes":true},{"n":157,"a":"CuSO4","b":"Na2S","phen":"生成黑色不溶于酸的沉淀","eq":"Cu²⁺+S²⁻=CuS↓","yes":true},{"n":161,"a":"CuSO4","b":"KI","phen":"生成白色沉淀，溶液变为黄褐色，淀粉遇之变蓝","eq":"2Cu²⁺+4I⁻=2CuI↓+I₂","yes":true},{"n":167,"a":"CuSO4","b":"NH3H2O","phen":"先生成蓝色絮状沉淀，氨水过量后沉淀溶解，得到深蓝色溶液","eq":"Cu²⁺+4NH₃·H₂O=[Cu(NH₃)₄]²⁺+4H₂O","yes":true},{"n":168,"a":"CuSO4","b":"NaAlO2","phen":"生成蓝色絮状沉淀和白色胶状沉淀","eq":"Cu²⁺+2AlO₂⁻+4H₂O=Cu(OH)₂↓+2Al(OH)₃↓","yes":true},{"n":172,"a":"Na2S","b":"FeCl3","phen":"生成淡黄色浑浊和黑色沉淀","eq":"2Fe³⁺+3S²⁻=S↓+2FeS↓","yes":true},{"n":173,"a":"Na2S","b":"FeCl2","phen":"生成黑色沉淀","eq":"Fe²⁺+S²⁻=FeS↓","yes":true},{"n":177,"a":"Na2S","b":"Cl2Water","phen":"氯水黄绿色褪去，生成淡黄色浑浊","eq":"S²⁻+Cl₂=S↓+2Cl⁻","yes":true},{"n":178,"a":"Na2S","b":"Br2Water","phen":"溴水橙色褪去，生成淡黄色浑浊","eq":"S²⁻+Br₂=S↓+2Br⁻","yes":true},{"n":179,"a":"Na2S","b":"Na2SO3","phen":"无明显现象，加酸后生成淡黄色浑浊","eq":"无净离子方程式","yes":true},{"n":180,"a":"Na2S","b":"NH4Cl","phen":"产生臭鸡蛋气味的无色气体和刺激性气味气体","eq":"S²⁻+2NH₄⁺=H₂S↑+2NH₃↑","yes":true},{"n":183,"a":"Na2S","b":"AlCl3","phen":"生成白色胶状沉淀，同时产生臭鸡蛋气味的无色气体","eq":"2Al³⁺+3S²⁻+6H₂O=2Al(OH)₃↓+3H₂S↑","yes":true},{"n":187,"a":"FeCl3","b":"KSCN","phen":"溶液立即变为血红色","eq":"Fe³⁺+3SCN⁻=Fe(SCN)₃","yes":true},{"n":188,"a":"FeCl3","b":"KI","phen":"溶液黄色变为浅绿色，淀粉遇之变蓝","eq":"2Fe³⁺+2I⁻=2Fe²⁺+I₂","yes":true},{"n":192,"a":"FeCl3","b":"Na2SO3","phen":"溶液黄色变为浅绿色","eq":"2Fe³⁺+SO₃²⁻+H₂O=2Fe²⁺+SO₄²⁻+2H⁺","yes":true},{"n":194,"a":"FeCl3","b":"NH3H2O","phen":"生成红褐色沉淀","eq":"Fe³⁺+3NH₃·H₂O=Fe(OH)₃↓+3NH₄⁺","yes":true},{"n":195,"a":"FeCl3","b":"NaAlO2","phen":"生成红褐色沉淀和白色胶状沉淀","eq":"Fe³⁺+3AlO₂⁻+6H₂O=Fe(OH)₃↓+3Al(OH)₃↓","yes":true},{"n":202,"a":"FeCl2","b":"Cl2Water","phen":"溶液浅绿色变为黄色","eq":"2Fe²⁺+Cl₂=2Fe³⁺+2Cl⁻","yes":true},{"n":203,"a":"FeCl2","b":"Br2Water","phen":"溶液浅绿色变为黄色","eq":"2Fe²⁺+Br₂=2Fe³⁺+2Br⁻","yes":true},{"n":206,"a":"FeCl2","b":"NH3H2O","phen":"生成白色沉淀，迅速变为灰绿色，最终变为红褐色","eq":"Fe²⁺+2NH₃·H₂O=Fe(OH)₂↓+2NH₄⁺","yes":true},{"n":207,"a":"FeCl2","b":"NaAlO2","phen":"生成白色沉淀","eq":"Fe²⁺+2AlO₂⁻+4H₂O=Fe(OH)₂↓+2Al(OH)₃↓","yes":true},{"n":223,"a":"KI","b":"Cl2Water","phen":"溶液无色变为黄褐色，淀粉遇之变蓝","eq":"2I⁻+Cl₂=I₂+2Cl⁻","yes":true},{"n":224,"a":"KI","b":"Br2Water","phen":"溶液无色变为黄褐色，淀粉遇之变蓝","eq":"2I⁻+Br₂=I₂+2Br⁻","yes":true},{"n":232,"a":"NaBr","b":"Cl2Water","phen":"溶液无色变为橙色","eq":"2Br⁻+Cl₂=Br₂+2Cl⁻","yes":true},{"n":242,"a":"Cl2Water","b":"Na2SO3","phen":"氯水黄绿色褪去","eq":"H₂SO₃+Cl₂+H₂O=4H⁺+2Cl⁻+SO₄²⁻","yes":true},{"n":244,"a":"Cl2Water","b":"NH3H2O","phen":"氯水黄绿色褪去","eq":"Cl₂+2NH₃·H₂O=Cl⁻+ClO⁻+2NH₄⁺+H₂O","yes":true},{"n":245,"a":"Cl2Water","b":"NaAlO2","phen":"氯水黄绿色褪去，生成白色胶状沉淀","eq":"Cl₂+2AlO₂⁻+2H₂O=2Al(OH)₃↓+2Cl⁻","yes":true},{"n":249,"a":"Br2Water","b":"Na2SO3","phen":"溴水橙色褪去","eq":"H₂SO₃+Br₂+H₂O=4H⁺+2Br⁻+SO₄²⁻","yes":true},{"n":251,"a":"Br2Water","b":"NH3H2O","phen":"溴水橙色褪去","eq":"Br₂+2NH₃·H₂O=Br⁻+BrO⁻+2NH₄⁺+H₂O","yes":true},{"n":252,"a":"Br2Water","b":"NaAlO2","phen":"溴水橙色褪去，生成白色胶状沉淀","eq":"Br₂+2AlO₂⁻+2H₂O=2Al(OH)₃↓+2Br⁻","yes":true},{"n":263,"a":"NH4Cl","b":"NaAlO2","phen":"生成白色胶状沉淀，同时产生刺激性气味气体","eq":"NH₄⁺+AlO₂⁻+H₂O=Al(OH)₃↓+NH₃↑","yes":true},{"n":268,"a":"NH3H2O","b":"AlCl3","phen":"生成白色胶状沉淀，氨水过量不溶解","eq":"Al³⁺+3NH₃·H₂O=Al(OH)₃↓+3NH₄⁺","yes":true},{"n":271,"a":"NaAlO2","b":"AlCl3","phen":"生成白色胶状沉淀","eq":"Al³⁺+3AlO₂⁻+6H₂O=4Al(OH)₃↓","yes":true}];
+
 function getSubstance(id) {
   return substances.find((s) => s.id === id) || substances[0];
 }
 
+function getReactionKey(left, right) {
+  return [left, right].sort().join("|");
+}
+
+function splitEquationSide(text, side) {
+  const value = String(text || "").replace(/→/g, "=");
+  if (!value.includes("=")) return [];
+  const parts = value.split("=");
+  const target = side === "right" ? parts[1] : parts[0];
+  if (!target) return [];
+  return target
+    .split("+")
+    .map((x) => x.trim().replace(new RegExp("^[0-9]+"), ""))
+    .filter(Boolean);
+}
+
+function inferKindFromPhenomenon(phenomenon, eq) {
+  const text = String(phenomenon || "") + String(eq || "");
+  if (text.includes("不反应") || text.includes("无净离子方程式")) return "none";
+  if (text.includes("褪去")) return "fade";
+  if (text.includes("血红") || text.includes("变为") || text.includes("变成") || text.includes("变黄") || text.includes("浅绿色") || text.includes("深蓝色")) return "color";
+  if (text.includes("沉淀") || text.includes("浑浊")) return "precipitate";
+  if (text.includes("气泡") || text.includes("气体") || text.includes("放出") || text.includes("↑")) return "gas";
+  if (text.includes("中和") || text.includes("H₂O")) return "neutralization";
+  return "color";
+}
+
+function visualFromPhenomenon(phenomenon, kind) {
+  const text = String(phenomenon || "");
+  if (text.includes("蓝色")) return { precipitate: "#38bdf8", solution: "#dbeafe", bubble: "#ffffff" };
+  if (text.includes("红褐色")) return { precipitate: "#92400e", solution: "#fef3c7", bubble: "#ffffff" };
+  if (text.includes("棕黑") || text.includes("黑色")) return { precipitate: "#111827", solution: "#e0f2fe", bubble: "#ffffff" };
+  if (text.includes("黄色") || text.includes("淡黄色") || text.includes("黄褐")) return { precipitate: "#fde68a", solution: "#fef3c7", bubble: "#ffffff" };
+  if (text.includes("血红")) return { solution: "#b91c1c" };
+  if (text.includes("橙")) return { solution: "#f97316", bubble: "#ffffff" };
+  if (kind === "fade") return { solution: "#e0f2fe" };
+  return { precipitate: "#f8fafc", solution: "#e0f2fe", bubble: "#ffffff" };
+}
+
+function createTableReaction(row) {
+  const left = getSubstance(row.a);
+  const right = getSubstance(row.b);
+  const inputIons = [...(left?.ions || []), ...(right?.ions || [])];
+  const kind = row.yes ? inferKindFromPhenomenon(row.phen, row.eq) : "none";
+  const products = row.yes
+    ? splitEquationSide(row.eq, "right").filter((item) => item.includes("↓") || item.includes("↑") || item === "H₂O" || item.includes("[") || item.includes("(") || item.includes("I₂") || item.includes("Br₂") || item.includes("ClO"))
+    : [];
+  const leftSideItems = row.yes ? splitEquationSide(row.eq, "left") : [];
+  const reactingIons = leftSideItems.filter((item) => inputIons.includes(item) || item.includes("Cl₂") || item.includes("Br₂") || item.includes("NH₃") || item.includes("H₂O"));
+  const spectators = row.yes ? inputIons.filter((ion) => !row.eq.includes(ion)) : inputIons;
+  const category = row.yes
+    ? kind === "precipitate" ? "表格沉淀/现象反应"
+      : kind === "gas" ? "表格气体反应"
+      : kind === "fade" ? "表格褪色反应"
+      : kind === "neutralization" ? "表格中和反应"
+      : "表格显色/氧化还原反应"
+    : "无明显净反应";
+
+  return {
+    id: "table-" + row.n,
+    source: "table",
+    number: "表-" + row.n,
+    level: row.yes ? "表格" : "判断",
+    category,
+    reactants: [row.a, row.b],
+    title: (left?.formula || row.a) + " 与 " + (right?.formula || row.b),
+    kind,
+    visualLabel: row.phen,
+    phenomenon: row.phen,
+    visual: visualFromPhenomenon(row.phen, kind),
+    fullEq: row.yes ? (left?.formula || row.a) + " + " + (right?.formula || row.b) + "：" + row.eq : "无明显反应",
+    totalIon: row.yes ? row.eq : "离子在溶液中共存",
+    netIon: row.yes ? row.eq : "无净离子方程式",
+    cards: Array.from(new Set([...inputIons, ...products])),
+    correctCards: Array.from(new Set([...reactingIons, ...products])),
+    spectators,
+    noSplit: products,
+    inferenceIons: reactingIons,
+    tip: row.yes ? "来自24种溶液离子反应全表第 " + row.n + " 条：" + row.phen : "该组合在表格中记录为无明显现象，不发生净离子反应。",
+  };
+}
+
+const manualReactionKeys = new Set(reactionBank.map((r) => getReactionKey(r.reactants[0], r.reactants[1])));
+const tableReactionBank = tableReactionRows.map(createTableReaction).filter((r) => !manualReactionKeys.has(getReactionKey(r.reactants[0], r.reactants[1])));
+const fullReactionBank = [...reactionBank, ...tableReactionBank];
+
 function getReactionForReactants(left, right) {
-  const ids = [left, right].sort().join("|");
-  const match = reactionBank.find((r) => r.reactants.slice().sort().join("|") === ids);
+  const ids = getReactionKey(left, right);
+  const match = fullReactionBank.find((r) => getReactionKey(r.reactants[0], r.reactants[1]) === ids);
   if (match) return match;
-  return { ...defaultNoReaction, reactants: [left, right], title: `${getSubstance(left).formula} 与 ${getSubstance(right).formula}` };
+  return { ...defaultNoReaction, reactants: [left, right], title: getSubstance(left).formula + " 与 " + getSubstance(right).formula };
 }
 
 const knowledgeCards = [
@@ -629,9 +1079,9 @@ function isCardSelectionCorrect(selected, reaction) {
 }
 
 function runSelfTests() {
-  const first = reactionBank[0];
+  const first = fullReactionBank[0];
   const tests = [
-    { name: "题库至少包含5条示例", actual: reactionBank.length >= 5, expected: true },
+    { name: "题库至少包含5条示例", actual: fullReactionBank.length >= 90, expected: true },
     { name: "微观离子数据必须存在", actual: Array.isArray(ions) && ions.length >= 4, expected: true },
     { name: "第一条题库应为氯化银沉淀反应", actual: first.netIon.includes("AgCl"), expected: true },
     { name: "第一条卡片选择完整时应判对", actual: isCardSelectionCorrect(first.correctCards, first), expected: true },
@@ -642,8 +1092,15 @@ function runSelfTests() {
     { name: "混合后微观场景应能识别旁观离子", actual: getMicroScene("CuSO4", "NaOH", getReactionForReactants("CuSO4", "NaOH"), true).spectatorIons.includes("SO₄²⁻"), expected: true },
     { name: "动态知识讲解所需场景应能给出生成物", actual: getMicroScene("FeCl3", "NaOH", getReactionForReactants("FeCl3", "NaOH"), true).products.includes("Fe(OH)₃↓"), expected: true },
     { name: "未知组合应返回无净反应", actual: getReactionForReactants("BaCl2", "KNO3").id === "no-net-reaction", expected: true },
-    { name: "无净反应题选择空卡片应判对", actual: isCardSelectionCorrect([], reactionBank.find((r) => r.id === "nacl-kno3")), expected: true },
-    { name: "题库有效净离子方程式应带箭头或等号", actual: reactionBank.filter((x) => x.kind !== "none").every((x) => hasEquationArrow(x.netIon)), expected: true },
+    { name: "BaCl2与Na2CO3应生成BaCO3沉淀", actual: getReactionForReactants("BaCl2", "Na2CO3").netIon.includes("BaCO₃"), expected: true },
+    { name: "CuSO4与CaOH2应生成Cu(OH)2", actual: getReactionForReactants("CuSO4", "CaOH2").netIon.includes("Cu(OH)₂"), expected: true },
+    { name: "CuSO4与Na2CO3应判为双水解", actual: getReactionForReactants("CuSO4", "Na2CO3").kind === "hydrolysis", expected: true },
+    { name: "FeCl3与Na2CO3应判为双水解", actual: getReactionForReactants("FeCl3", "Na2CO3").netIon.includes("Fe(OH)₃"), expected: true },
+    { name: "偏铝酸根与铝离子应双水解", actual: getReactionForReactants("NaAlO2", "AlCl3").netIon.includes("4Al(OH)₃"), expected: true },
+    { name: "偏铝酸根与铵根应生成氨气", actual: getReactionForReactants("NaAlO2", "NH4Cl").netIon.includes("NH₃"), expected: true },
+    { name: "偏铝酸根与碳酸氢根应生成氢氧化铝", actual: getReactionForReactants("NaAlO2", "NaHCO3").netIon.includes("Al(OH)₃"), expected: true },
+    { name: "无净反应题选择空卡片应判对", actual: isCardSelectionCorrect([], fullReactionBank.find((r) => r.id === "nacl-kno3")), expected: true },
+    { name: "题库有效净离子方程式应带箭头或等号", actual: fullReactionBank.filter((x) => x.kind !== "none").every((x) => hasEquationArrow(x.netIon)), expected: true },
     { name: "兼容等号与箭头", actual: normalizeEquation("H⁺ + OH⁻ = H₂O") === normalizeEquation("H⁺+OH⁻→H₂O"), expected: true },
   ];
   tests.forEach((t) => {
@@ -736,12 +1193,13 @@ function ReactantSelectorPanel({ left, right, setLeft, setRight, onStartDemo }) 
 function BeakerVisual({ mixed, reaction, leftId, rightId }) {
   const leftSub = getSubstance(leftId || reaction.reactants[0] || "BaCl2");
   const rightSub = getSubstance(rightId || reaction.reactants[1] || "Na2SO4");
-  const showPrecipitate = mixed && reaction.kind === "precipitate";
-  const showGas = mixed && reaction.kind === "gas";
+  const phenomenonText = reaction.phenomenon || "";
+  const showPrecipitate = mixed && (reaction.kind === "precipitate" || reaction.kind === "hydrolysis" || phenomenonText.includes("沉淀") || phenomenonText.includes("浑浊"));
+  const showGas = mixed && (reaction.kind === "gas" || reaction.kind === "hydrolysis" || phenomenonText.includes("气泡") || phenomenonText.includes("气体") || phenomenonText.includes("放出"));
   const showNeutral = mixed && reaction.kind === "neutralization";
   const showNone = mixed && reaction.kind === "none";
-  const showColor = mixed && reaction.kind === "color";
-  const showFade = mixed && reaction.kind === "fade";
+  const showColor = mixed && (reaction.kind === "color" || phenomenonText.includes("血红") || phenomenonText.includes("变为") || phenomenonText.includes("变成") || phenomenonText.includes("浅绿色") || phenomenonText.includes("深蓝色"));
+  const showFade = mixed && (reaction.kind === "fade" || phenomenonText.includes("褪去"));
   const visual = reaction.visual || {};
 
   return (
@@ -954,9 +1412,9 @@ function EquationTrainer({ addMistake }) {
   const [step, setStep] = useState(0);
   const [inputs, setInputs] = useState({ fullEq: "", totalIon: "", netIon: "" });
   const [stepFeedback, setStepFeedback] = useState(null);
-  const reaction = reactionBank[idx];
-  const categories = ["全部", ...Array.from(new Set(reactionBank.map((r) => r.category)))];
-  const filteredReactions = reactionBank.filter((r) => {
+  const reaction = fullReactionBank[idx] || fullReactionBank[0];
+  const categories = ["全部", ...Array.from(new Set(fullReactionBank.map((r) => r.category)))];
+  const filteredReactions = fullReactionBank.filter((r) => {
     const matchCategory = categoryFilter === "全部" || r.category === categoryFilter;
     const q = query.trim().toLowerCase();
     const matchQuery = !q || r.title.toLowerCase().includes(q) || r.netIon.toLowerCase().includes(q) || r.number === q;
@@ -993,11 +1451,11 @@ function EquationTrainer({ addMistake }) {
         <div className="mb-4 space-y-3">
           <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="搜索题号、反应名称或方程式，如 BaSO4、AgCl" className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-400 focus:bg-white" />
           <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 outline-none transition focus:border-blue-400 focus:bg-white">{categories.map((c) => <option key={c} value={c}>{c}</option>)}</select>
-          <button onClick={() => { const pool = filteredReactions.length ? filteredReactions : reactionBank; const pick = pool[Math.floor(Math.random() * pool.length)]; changeReaction(reactionBank.findIndex((x) => x.id === pick.id)); }} className="w-full rounded-2xl bg-orange-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-orange-600">随机抽一题</button>
-          <p className="text-xs font-semibold text-slate-500">当前显示 {filteredReactions.length} / {reactionBank.length} 条题库</p>
+          <button onClick={() => { const pool = filteredReactions.length ? filteredReactions : fullReactionBank; const pick = pool[Math.floor(Math.random() * pool.length)]; changeReaction(fullReactionBank.findIndex((x) => x.id === pick.id)); }} className="w-full rounded-2xl bg-orange-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-orange-600">随机抽一题</button>
+          <p className="text-xs font-semibold text-slate-500">当前显示 {filteredReactions.length} / {fullReactionBank.length} 条题库</p>
         </div>
         <div className="max-h-[520px] space-y-2 overflow-y-auto pr-1">
-          {filteredReactions.map((r) => { const i = reactionBank.findIndex((x) => x.id === r.id); return <button key={r.id} onClick={() => changeReaction(i)} className={`w-full rounded-2xl border p-3 text-left transition ${idx === i ? "border-blue-500 bg-blue-50" : "border-slate-200 bg-slate-50 hover:border-blue-300"}`}><div className="flex items-center justify-between gap-2"><b className="text-sm text-slate-900">{r.title}</b><Pill tone={r.level === "基础" ? "green" : r.level === "提高" ? "orange" : "blue"}>{r.level}</Pill></div><p className="mt-2 text-xs text-slate-500">{r.category}｜{r.phenomenon}</p></button>; })}
+          {filteredReactions.map((r) => { const i = fullReactionBank.findIndex((x) => x.id === r.id); return <button key={r.id} onClick={() => changeReaction(i)} className={`w-full rounded-2xl border p-3 text-left transition ${idx === i ? "border-blue-500 bg-blue-50" : "border-slate-200 bg-slate-50 hover:border-blue-300"}`}><div className="flex items-center justify-between gap-2"><b className="text-sm text-slate-900">{r.title}</b><Pill tone={r.level === "基础" ? "green" : r.level === "提高" ? "orange" : "blue"}>{r.level}</Pill></div><p className="mt-2 text-xs text-slate-500">{r.category}｜{r.phenomenon}</p></button>; })}
         </div>
       </div>
 
@@ -1037,6 +1495,7 @@ function DynamicKnowledgeModule({ selectedA, selectedB, reaction, markDone }) {
     if (reaction.kind === "neutralization") return "该反应发生的主要原因是 H⁺ 与 OH⁻ 结合生成弱电解质 H₂O。";
     if (reaction.kind === "color") return "该反应的特点是生成有颜色的络合物或单质，宏观上体现为溶液颜色变化。";
     if (reaction.kind === "fade") return "该反应体现为氧化还原过程，原有有色物质被消耗，因此出现褪色现象。";
+    if (reaction.kind === "hydrolysis") return "该反应属于彻底双水解或弱酸根诱导水解，通常同时生成难溶氢氧化物沉淀和气体，因而现象很明显。";
     return "这组溶液混合后没有生成沉淀、气体或弱电解质，因此没有净离子反应。";
   }, [reaction]);
 
